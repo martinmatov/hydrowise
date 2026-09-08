@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+model Product {
+  id              String           @id @default(cuid())
+  slug            String           @unique
+  title           String
+  descriptionHtml String?
+  vendor          String?
+  productType     String?
+  tags            String[]
+  status          ProductStatus    @default(ACTIVE)
+  images          ProductImage[]
+  variants        ProductVariant[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  position  Int     @default(0)
+}
+
+model ProductVariant {
+  id           String      @id @default(cuid())
+  productId    String
+  product      Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku          String?     @unique
+  title        String      @default("Default")
+  priceEur     Decimal     @db.Decimal(10, 2)
+  compareAtEur Decimal?    @db.Decimal(10, 2)
+  stock        Int         @default(0)
+  weightGrams  Int?
+  isDefault    Boolean     @default(true)
+  cartItems    CartItem[]
+  orderItems   OrderItem[]
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id          String         @id @default(cuid())
+  cartId      String
+  cart        Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId   String
+  variant     ProductVariant @relation(fields: [variantId], references: [id])
+  quantity    Int            @default(1)
+  isOrderBump Boolean        @default(false)
+
+  @@unique([cartId, variantId])
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum OrderItemSource {
+  STANDARD
+  ORDER_BUMP
+  POST_PURCHASE_UPSELL
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   Int         @default(autoincrement())
+  status        OrderStatus @default(PENDING)
+  customerName  String
+  email         String?
+  phone         String
+  address       String
+  city          String
+  postalCode    String?
+  notes         String?
+  subtotalEur   Decimal     @db.Decimal(10, 2)
+  shippingEur   Decimal     @db.Decimal(10, 2)
+  totalEur      Decimal     @db.Decimal(10, 2)
+  items         OrderItem[]
+  upsellShownAt    DateTime?
+  upsellAcceptedAt DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id               String          @id @default(cuid())
+  orderId          String
+  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId        String
+  variant          ProductVariant  @relation(fields: [variantId], references: [id])
+  titleSnapshot    String
+  priceEurSnapshot Decimal         @db.Decimal(10, 2)
+  quantity         Int
+  source           OrderItemSource @default(STANDARD)
+}
