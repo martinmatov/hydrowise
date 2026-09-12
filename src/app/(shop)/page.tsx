@@ -6,6 +6,8 @@ import { isSvgUrl } from "@/lib/image";
 import { addToCartAction } from "@/actions/cart";
 import { ExpertTabs } from "@/components/expert-tabs";
 
+export const dynamic = "force-dynamic";
+
 const BENEFITS = [
   "ПОВЕЧЕ енергия",
   "ПО-ХУБАВА кожа",
