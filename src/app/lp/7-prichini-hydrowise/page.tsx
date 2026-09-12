@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Golos_Text } from "next/font/google";
 import { StarRating } from "@/components/star-rating";
-import { StickyMobileCta } from "@/components/listicle/sticky-mobile-cta";
 
 const golos = Golos_Text({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "600", "700"] });
 
@@ -224,7 +223,6 @@ export default function ListiclePage() {
                 {reason.sourceLabel}
               </a>
             ) : null}
-            {i === 0 ? <div id="listicle-reason-1-end" /> : null}
           </section>
         ))}
       </div>
@@ -338,11 +336,6 @@ export default function ListiclePage() {
           </p>
         </div>
       </section>
-
-      <StickyMobileCta
-        href="https://hydrowise.health/products/hydrowise"
-        label="Разгледайте Hydrowise"
-      />
     </div>
   );
 }
