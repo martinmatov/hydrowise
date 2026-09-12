@@ -99,7 +99,11 @@ export async function placeOrder(
       city: order.city,
       postalCode: order.postalCode,
       notes: order.notes,
-      items: order.items,
+      items: order.items.map((item) => ({
+        titleSnapshot: item.titleSnapshot,
+        quantity: item.quantity,
+        priceEurSnapshot: item.priceEurSnapshot.toString(),
+      })),
       subtotalEur: order.subtotalEur.toString(),
       shippingEur: order.shippingEur.toString(),
       totalEur: order.totalEur.toString(),
