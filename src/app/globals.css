@@ -2,10 +2,14 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --brand: #0d9488;
-  --brand-dark: #0f766e;
-  --brand-gold: #d4a017;
+  --foreground: #1f2a30;
+  --brand: #29abe2;
+  --brand-dark: #0e7fb5;
+  --brand-tint: #e8f5fc;
+  --brand-gold: #e8452c;
+  --brand-check: #34b54a;
+  --brand-star: #f5b301;
+  --body-text: #6b7a82;
 }
 
 @theme inline {
@@ -13,13 +17,35 @@
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
+  --color-brand-tint: var(--brand-tint);
   --color-brand-gold: var(--brand-gold);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-check: var(--brand-check);
+  --color-brand-star: var(--brand-star);
+  --color-body: var(--body-text);
+  --font-sans: var(--font-manrope), "Golos Text", Helvetica, Arial, sans-serif;
 }
 
 body {
   background: var(--background);
+  color: var(--body-text);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }

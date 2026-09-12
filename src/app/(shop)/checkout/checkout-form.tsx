@@ -110,7 +110,7 @@ export function CheckoutForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
+        className="w-full rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
         {isPending ? "Изпращане..." : "Поръчай с наложен платеж"}
       </button>

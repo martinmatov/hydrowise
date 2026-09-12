@@ -126,7 +126,7 @@ export default async function CartPage() {
 
           <Link
             href="/checkout"
-            className="mt-6 block w-full rounded-full bg-brand px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
+            className="mt-6 block w-full rounded-lg bg-brand px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
           >
             Продължи към поръчка
           </Link>
