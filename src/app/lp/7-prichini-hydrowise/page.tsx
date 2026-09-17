@@ -104,15 +104,14 @@ export default function ListiclePage() {
         <div className="mt-6 flex items-center gap-3">
           <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
             <Image
-              src="/lp/hero.png"
-              alt="Петя Милева"
+              src="/lp/avatar.png"
+              alt="Петя Илиева"
               fill
               className="object-cover"
-              style={{ objectPosition: "50% 20%" }}
             />
           </div>
           <div>
-            <p className="text-sm font-semibold">Петя Милева</p>
+            <p className="text-sm font-semibold">Петя Илиева</p>
             <p className="text-xs text-body">Последна актуализация: {formatBgDate(new Date())}</p>
           </div>
         </div>
