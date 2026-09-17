@@ -116,13 +116,6 @@ export default function ListiclePage() {
             <p className="text-xs text-body">Последна актуализация: {formatBgDate(new Date())}</p>
           </div>
         </div>
-
-        <div className="mt-10 rounded-lg border-l-4 border-brand bg-brand-tint px-5 py-4">
-          <p className="text-[17px] font-semibold italic leading-[1.6] text-brand-dark">
-            „Не купих това заради науката. Купих го, защото бях отчаяна. Науката дойде после, като
-            потвърждение.“
-          </p>
-        </div>
       </section>
 
       {/* Block C — narrative lead-in */}
