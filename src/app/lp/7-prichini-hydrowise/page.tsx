@@ -107,6 +107,22 @@ export default function ListiclePage() {
           alt=""
         />
       </noscript>
+      <Script id="pass-click-params" strategy="afterInteractive">
+        {`
+          (function () {
+            var params = new URLSearchParams(window.location.search);
+            var keep = ["fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+            var link = document.getElementById("cta-final");
+            if (!link) return;
+            var url = new URL(link.href);
+            keep.forEach(function (key) {
+              var value = params.get(key);
+              if (value) url.searchParams.set(key, value);
+            });
+            link.href = url.toString();
+          })();
+        `}
+      </Script>
       {/* Block B — hero */}
       <section className="mx-auto max-w-[680px] px-6 pt-10 sm:pt-16">
         <div className="aspect-[4/3] overflow-hidden rounded-lg bg-brand-tint">
@@ -288,6 +304,7 @@ export default function ListiclePage() {
                   </span>
                 </div>
                 <a
+                  id="cta-final"
                   href="https://hydrowise.health/products/hydrowise"
                   className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-base font-bold text-white transition-colors hover:bg-brand-dark"
                   style={{ minHeight: 48 }}
